@@ -83,18 +83,11 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
 regd_users.delete("/auth/review/:isbn", (req, res) => {
   //Write your code here
   let isbn = req.params.isbn;
-  let book = books[isbn];
 
-  if (book) {
-    let review = req.body.review;
-    if (review) {
-      book["reviews"] = review;
-    }
-    books[isbn] = book;
-    res.send(`Book With ISBN  ${isbn} updated.`);
-  } else {
-    res.send("Unable to find book!");
+  if (isbn) {
+    delete books[isbn]["review"];
   }
+  res.send(`Book With ISBN ${isbn} reviews deleted.`);
 });
 
 module.exports.authenticated = regd_users;
